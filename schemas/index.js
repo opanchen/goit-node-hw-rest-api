@@ -4,6 +4,7 @@ const addSchema = require("./addSchema");
 const updateFavoriteSchema = require("./updateFavoriteSchema");
 const updateSubscriptionSchema = require("./updateSubscriptionSchema");
 const emailSchema = require("./emailSchema");
+const messageSchema = require("./messageSchema");
 
 module.exports = {
   registerSchema,
@@ -12,4 +13,5 @@ module.exports = {
   updateFavoriteSchema,
   updateSubscriptionSchema,
   emailSchema,
+  messageSchema,
 };

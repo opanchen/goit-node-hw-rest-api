@@ -3,6 +3,7 @@ const ctrlWrapper = require("./ctrlWrapper");
 const handleMongooseError = require("./handleMongooseError");
 const handleErrorMessage = require("./handleErrorMessage");
 const sendEmail = require("./sendEmail");
+const getCurrentDate = require("./getCurrentDate");
 
 module.exports = {
   HttpError,
@@ -10,4 +11,5 @@ module.exports = {
   handleMongooseError,
   handleErrorMessage,
   sendEmail,
+  getCurrentDate,
 };
