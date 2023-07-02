@@ -33,8 +33,8 @@ describe("POST /api/users/login", () => {
 
   test("Should return data-object with status 200", async () => {
     const response = await request(app).post("/api/users/login").send({
-      email: "poly@mail.com",
-      password: "654321",
+      email: "jatiho5447@dotvilla.com",
+      password: "123456",
     });
 
     expect(response.statusCode).toBe(200);
@@ -56,6 +56,6 @@ describe("POST /api/users/login", () => {
     expect(typeof user.email).toBe('string');
     expect(() => user.hasOwnProperty("subscription").toBe(true));
     expect(typeof user.subscription).toBe('string');
-    expect(user.subscription).toBe('starter' || 'pro' || 'business');
+    expect(['starter', 'pro', 'business']).toContain(user.subscription);
   });
 });
