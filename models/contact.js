@@ -2,6 +2,14 @@ const { Schema, model } = require("mongoose");
 
 const { handleMongooseError } = require("../helpers");
 
+const messageSubSchema = new Schema(
+  {
+    message: String,
+    date: String,
+  },
+  { versionKey: false, timestamps: false }
+);
+
 const contactSchema = new Schema(
   {
     name: {
@@ -23,6 +31,7 @@ const contactSchema = new Schema(
       ref: "user",
       required: true,
     },
+    sentMessages: [messageSubSchema],
   },
   {
     versionKey: false,

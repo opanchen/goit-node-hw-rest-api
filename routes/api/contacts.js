@@ -2,7 +2,11 @@ const express = require("express");
 
 const ctrl = require("../../controllers/contacts");
 const { validateBody, isValidId, authenticate } = require("../../middlewares");
-const { addSchema, updateFavoriteSchema } = require("../../schemas");
+const {
+  addSchema,
+  updateFavoriteSchema,
+  messageSchema,
+} = require("../../schemas");
 
 const router = express.Router();
 
@@ -28,6 +32,14 @@ router.patch(
   isValidId,
   validateBody(updateFavoriteSchema),
   ctrl.updateStatusContact
+);
+
+router.post(
+  "/:contactId/email",
+  authenticate,
+  isValidId,
+  validateBody(messageSchema),
+  ctrl.sendMessage
 );
 
 module.exports = router;
