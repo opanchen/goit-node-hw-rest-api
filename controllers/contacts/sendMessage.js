@@ -1,10 +1,6 @@
-const {
-  ctrlWrapper,
-  HttpError,
-  sendEmail,
-  getCurrentDate,
-} = require("../../helpers");
+const { ctrlWrapper, HttpError, getCurrentDate } = require("../../helpers");
 const { Contact } = require("../../models");
+const { emailSendler } = require("../../services");
 
 const sendMessage = async (req, res) => {
   const { contactId } = req.params;
@@ -29,7 +25,7 @@ const sendMessage = async (req, res) => {
     `,
   };
 
-  await sendEmail(emailToSend);
+  await emailSendler.sendEmail(emailToSend);
 
   const date = getCurrentDate();
   const sentMessages = [...contact.sentMessages, { message, date }];
