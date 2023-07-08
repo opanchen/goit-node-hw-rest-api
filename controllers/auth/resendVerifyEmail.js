@@ -1,12 +1,12 @@
-const { HttpError, sendEmail, ctrlWrapper } = require("../../helpers");
+const { HttpError, ctrlWrapper } = require("../../helpers");
 const { User } = require("../../models");
+const { emailSendler } = require("../../services");
 const { BASE_URL } = process.env;
 
 const resendVerifyEmail = async (req, res) => {
   const { email } = req.body;
-  console.log(req.body);
+
   const user = await User.findOne({ email });
-  console.log(user);
 
   if (!user) throw HttpError(401, "Email not found");
 
@@ -14,19 +14,20 @@ const resendVerifyEmail = async (req, res) => {
 
   const verifyEmail = {
     to: email,
-    subject: "Verify email",
+    subject: "Phonebook App verification",
     html: `
-        <p>Click 
+        <p>Please follow 
             <a 
             target="_blank" 
+            rel="noreferrer noopener"
             href="${BASE_URL}/api/users/verify/${user.verificationToken}" 
-            >here
+            >this link
             </a> 
-            to verify your email
+            to verify your email.
         </p>`,
   };
 
-  await sendEmail(verifyEmail);
+  await emailSendler.sendEmail(verifyEmail);
 
   res.json({
     message: "Verification email sent",

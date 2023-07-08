@@ -7,6 +7,8 @@ const nodemailerConfig = {
   host: "smtp.meta.ua",
   port: 465, // also can use 25 or 2525, but they aren't secured
   secure: true,
+  // secure: false,
+  // pull: true,
   auth: {
     user: META_USER,
     pass: META_PASSWORD,
@@ -27,4 +29,8 @@ const sendEmail = async (data) => {
     .catch((error) => console.log("NODEMAILER. Email send error: \n", error));
 };
 
-module.exports = sendEmail;
+const emailSendler = {
+  sendEmail,
+};
+
+module.exports = emailSendler;

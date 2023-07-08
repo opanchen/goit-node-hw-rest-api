@@ -3,8 +3,9 @@ const gravatar = require("gravatar");
 const { nanoid } = require("nanoid");
 
 const { BASE_URL } = process.env;
-const { ctrlWrapper, HttpError, sendEmail } = require("../../helpers");
+const { ctrlWrapper, HttpError } = require("../../helpers");
 const { User } = require("../../models");
+const { emailSendler } = require("../../services");
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -25,19 +26,20 @@ const register = async (req, res) => {
 
   const verifyEmail = {
     to: email,
-    subject: "Verify email",
+    subject: "Phonebook App verification",
     html: `
-    <p>Click 
+    <p>Please follow 
         <a 
         target="_blank" 
+        rel="noreferrer noopener"
         href="${BASE_URL}/api/users/verify/${verificationToken}" 
-        >here
+        >this link
         </a> 
-        to verify your email
+        to verify your email.
     </p>`,
   };
 
-  await sendEmail(verifyEmail);
+  await emailSendler.sendEmail(verifyEmail);
 
   res.status(201).json({
     name: newUser.name,
